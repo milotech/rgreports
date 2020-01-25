@@ -3,7 +3,7 @@ import ReportDay from '../ReportDay';
 
 import './ReportContent.css';
 
-export default function ReportContent({ week, days, onChange }) {
+export default function ReportContent({ week, days, onChange, onAddRow }) {
     return (
         <div className='ReportContent'>
             <div className='panel'>
@@ -23,6 +23,7 @@ export default function ReportContent({ week, days, onChange }) {
                             dayNum={i}
                             rows={days[i]}
                             onChange={onChange}
+                            onAddRow={onAddRow}
                         />
                     )}
                 </div>

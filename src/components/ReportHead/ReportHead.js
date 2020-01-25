@@ -7,7 +7,7 @@ import nextImage from './images/next.png';
 
 import './ReportHead.css';
 
-export default function ReportHead({ week, weekDaysCount, onPrevWeek, onNextWeek }) {
+export default function ReportHead({ week, weekDaysCount, onChangeWeek }) {
     const firstDay = Day.createDay(week, 0);
     const lastDay = Day.createDay(week, weekDaysCount - 1);
     const title = getTitleString(firstDay, lastDay);
@@ -15,14 +15,14 @@ export default function ReportHead({ week, weekDaysCount, onPrevWeek, onNextWeek
     return (
         <div className='ReportHead'>
             <div className='week-prev'>
-                <img src={prevImage} alt='prev week' onClick={onPrevWeek} />
+                <img src={prevImage} alt='prev week' onClick={() => onChangeWeek(-1)} />
             </div>
             <div className='week-title panel'>
                 {title}
                 <CopyButton value={title} />
             </div>
             <div className='week-next'>
-                <img src={nextImage} alt='next week' onClick={onNextWeek} />
+                <img src={nextImage} alt='next week' onClick={() => onChangeWeek(1)} />
             </div>
         </div>
     );

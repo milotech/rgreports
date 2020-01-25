@@ -9,6 +9,11 @@
 
 .week-prev img, .week-next img {
     display: block;
+    transition: transform ease-in-out 100ms;
+}
+
+.week-prev img:hover, .week-next img:hover {
+    transform: scale(1.3);
 }
 
 .week-title {

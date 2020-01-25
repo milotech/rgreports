@@ -8,38 +8,51 @@ export default class Reports extends React.Component {
     constructor(props) {
         super(props);
 
+        const week = getCurrentWeek();
         this.state = {
-            week: getCurrentWeek(),
-            days: [[{}], [{}], [{}], [{}], [{}]]
+            week: week,
+            days: loadWeekDays(week)
         };
 
-        this.handlePrevWeek = this.handlePrevWeek.bind(this);
-        this.handleNextWeek = this.handleNextWeek.bind(this);
+        this.handleChangeWeek = this.handleChangeWeek.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleAddRow = this.handleAddRow.bind(this);
     }
 
-    handlePrevWeek() {
-        this.setState((state) => ({
-            week: state.week - 1,
-            days: [[{}], [{}], [{}], [{}], [{}]],
-        }));
-    }
-
-    handleNextWeek() {
-        this.setState((state) => ({
-            week: state.week + 1,
-            days: [[{}], [{}], [{}], [{}], [{}]],
-        }));
+    handleChangeWeek(offset) {
+        this.setState((state) => {
+            const week = state.week + offset;
+            const days = loadWeekDays(week);
+            return { week , days}
+        });
     }
 
     handleChange(day, row, fieldName, fieldValue) {
-        const days = this.state.days.slice();
-        if(!days[day])
-            days[day] = [];
-        if(!days[day][row])
-            days[day][row] = {};
+        if(fieldName === 'hours')
+            if(isNaN(fieldValue))
+                return;
 
+        const days = this.state.days.slice();
         days[day][row][fieldName] = fieldValue;
+        
+        this.setState({ days });
+
+        if(this.saveTimeout)
+            clearTimeout(this.saveTimeout);
+
+        const week = this.state.week;
+        this.saveTimeout = setTimeout(() => {
+            saveWeekDays(week, days);
+        }, 1000);
+    }
+
+    handleAddRow(day) {
+        const days = this.state.days.slice();
+        const dayHours = days[day].reduce((prev, curr) => prev + (+curr.hours || 0), 0);
+        let newRowHours = undefined;
+        if(dayHours < 8)
+            newRowHours = Math.round((8 - dayHours) * 100) / 100;
+        days[day].push({ hours: newRowHours });
         
         this.setState({ days });
     }
@@ -50,13 +63,13 @@ export default class Reports extends React.Component {
                 <ReportHead 
                     week={this.state.week}
                     weekDaysCount={this.state.days.length}
-                    onPrevWeek={this.handlePrevWeek}
-                    onNextWeek={this.handleNextWeek}
+                    onChangeWeek={this.handleChangeWeek}
                 />
                 <ReportContent
                     week={this.state.week}
                     days={this.state.days}
                     onChange={this.handleChange}
+                    onAddRow={this.handleAddRow}
                 />
             </div>
         );
@@ -67,4 +80,19 @@ function getCurrentWeek() {
     const now = Date.now();
 
     return Math.trunc(now / 1000 / 60 / 60 / 24 / 7);
+}
+
+function getEmptyDays() {
+    return Array(5).fill().map(() => [{ hours: 8}]);
+}
+
+function loadWeekDays(week) {
+    const jsonValue = localStorage.getItem('week' + week);
+    return jsonValue ? JSON.parse(jsonValue) : getEmptyDays();
+}
+
+function saveWeekDays(week, days) {
+    const key = 'week' + week;
+    const value = JSON.stringify(days);
+    localStorage.setItem(key, value);
 }

@@ -2,12 +2,29 @@
     display: flex;
     margin-bottom: 23px;
     margin-top: 14px;
+    position: relative;
 }
 
 .ReportDayRow {
     display: flex;
+    margin-top: 9px;
+}
+
+.ReportDayRow:first-child {
+    margin-top: 0;
 }
 
 .report-day-rows {
     flex-grow: 1;
+}
+
+.add-row {
+    position: absolute;
+    left: -50px;
+    cursor: pointer;
+    transition: transform ease-in-out 100ms;
+}
+
+.add-row:hover {
+    transform: scale(1.3);
 }
