@@ -1,0 +1,11 @@
+.Input {
+    border-bottom: 1px solid #CCCCCC;
+    padding-bottom: 2px;
+}
+
+.Input input {
+    width: 100%;
+    border: none;
+    padding: 0;
+    outline: none;
+}

@@ -1,0 +1,13 @@
+.ReportDay {
+    display: flex;
+    margin-bottom: 23px;
+    margin-top: 14px;
+}
+
+.ReportDayRow {
+    display: flex;
+}
+
+.report-day-rows {
+    flex-grow: 1;
+}

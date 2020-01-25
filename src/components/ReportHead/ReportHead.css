@@ -1,0 +1,18 @@
+.ReportHead {
+    display: flex;
+    align-items: center;
+}
+
+.week-prev, .week-next {
+    cursor: pointer;
+}
+
+.week-prev img, .week-next img {
+    display: block;
+}
+
+.week-title {
+    margin-left: 12px;
+    margin-right: 12px;
+    flex-grow: 1;
+}

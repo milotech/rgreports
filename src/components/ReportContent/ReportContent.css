@@ -1,0 +1,41 @@
+.ReportContent {
+    padding: 0 31px;
+    margin-top: 17px;
+    font-size: 14px;
+}
+
+.report-cols-header {
+    display: flex;
+    border-bottom: 1px solid #F3F3F3;
+    color: #5DAEFF;
+    padding-bottom: 3px;
+}
+
+.col-date {
+    width: 60px;
+    margin-right: 16px;
+}
+
+.col-comp {
+    width: 36px;
+    margin-right: 10px;
+}
+
+.col-mlst {
+    width: 36px;
+    margin-right: 10px;
+}
+
+.col-task {
+    width: 70px;
+    margin-right: 10px;
+}
+
+.col-hours {
+    width: 34px;
+    margin-right: 16px;
+}
+
+.col-work {
+    flex-grow: 1;
+}
