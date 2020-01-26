@@ -15,14 +15,14 @@ export default function ReportHead({ week, weekDaysCount, onChangeWeek }) {
     return (
         <div className='ReportHead'>
             <div className='week-prev'>
-                <img src={prevImage} alt='prev week' onClick={() => onChangeWeek(-1)} />
+                <img src={prevImage} alt='prev week' className="clickable" onClick={() => onChangeWeek(-1)} />
             </div>
             <div className='week-title panel'>
                 {title}
                 <CopyButton value={title} />
             </div>
             <div className='week-next'>
-                <img src={nextImage} alt='next week' onClick={() => onChangeWeek(1)} />
+                <img src={nextImage} alt='next week' className="clickable" onClick={() => onChangeWeek(1)} />
             </div>
         </div>
     );

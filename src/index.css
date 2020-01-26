@@ -21,3 +21,20 @@ code {
   border-radius: 6px;
   padding: 10px 21px;
 }
+
+.popup-panel {
+  border: 1px solid #BEBEBE;
+  border-radius: 6px;
+  background: #FFF;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+  padding: 8px;
+}
+
+.clickable {
+  cursor: pointer;
+  transition: transform ease-in-out 100ms;
+}
+
+.clickable:hover {
+  transform: scale(1.2);
+}

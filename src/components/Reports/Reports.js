@@ -17,6 +17,8 @@ export default class Reports extends React.Component {
         this.handleChangeWeek = this.handleChangeWeek.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleAddRow = this.handleAddRow.bind(this);
+        this.handleRemoveRow = this.handleRemoveRow.bind(this);
+        this.save = this.save.bind(this);
     }
 
     handleChangeWeek(offset) {
@@ -37,13 +39,7 @@ export default class Reports extends React.Component {
         
         this.setState({ days });
 
-        if(this.saveTimeout)
-            clearTimeout(this.saveTimeout);
-
-        const week = this.state.week;
-        this.saveTimeout = setTimeout(() => {
-            saveWeekDays(week, days);
-        }, 1000);
+        this.save(days);
     }
 
     handleAddRow(day) {
@@ -55,6 +51,30 @@ export default class Reports extends React.Component {
         days[day].push({ hours: newRowHours });
         
         this.setState({ days });
+
+        this.save(days);
+    }
+
+    handleRemoveRow(day, rowIndex) {
+        if(rowIndex <= 0)
+            return;
+
+        const days = this.state.days.slice();
+        days[day].splice(rowIndex, 1);
+        
+        this.setState({ days });
+
+        this.save(days);
+    }
+
+    save(days) {
+        if(this.saveTimeout)
+        clearTimeout(this.saveTimeout);
+
+        const week = this.state.week;
+        this.saveTimeout = setTimeout(() => {
+            saveWeekDays(week, days);
+        }, 1000);
     }
 
     render() {
@@ -70,6 +90,7 @@ export default class Reports extends React.Component {
                     days={this.state.days}
                     onChange={this.handleChange}
                     onAddRow={this.handleAddRow}
+                    onRemoveRow={this.handleRemoveRow}
                 />
             </div>
         );

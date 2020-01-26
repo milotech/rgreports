@@ -1,7 +1,8 @@
 import React from 'react';
 import Input from '../Input';
+import ReportDayRowMenu from './ReportDayRowMenu';
 
-export default function ReportDayRow({ dayNum, rowData, rowIndex, onChange }) {
+export default function ReportDayRow({ dayNum, rowData, rowIndex, onChange, onRemoveRow }) {
     const handleChange = (e) => onChange(dayNum, rowIndex, e.target.name, e.target.value);
 
     const { component, milestone, task, hours, text} = rowData;
@@ -23,6 +24,12 @@ export default function ReportDayRow({ dayNum, rowData, rowIndex, onChange }) {
             <div className="col-work">
                 <Input name="text" value={text || ""} onChange={handleChange} />
             </div>
+            <ReportDayRowMenu 
+                dayNum={dayNum} 
+                rowIndex={rowIndex}
+                onChange={onChange}
+                onRemoveRow={onRemoveRow}
+            />
         </div>
     )
 }
