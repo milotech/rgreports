@@ -26,15 +26,20 @@ export default class ReportDayRowMenu extends React.Component {
     }
 
     setRowValues(text) {
-        this.props.onChange(this.props.dayNum, this.props.rowIndex, "component", "-");
-        this.props.onChange(this.props.dayNum, this.props.rowIndex, "milestone", "-");
-        this.props.onChange(this.props.dayNum, this.props.rowIndex, "task", "-");
-        this.props.onChange(this.props.dayNum, this.props.rowIndex, "hours", "0");
-        this.props.onChange(this.props.dayNum, this.props.rowIndex, "text", text);
+        this.props.onSetField("component", "-");
+        this.props.onSetField("milestone", "-");
+        this.props.onSetField("task", "-");
+        this.props.onSetField("hours", "0");
+        this.props.onSetField("text", text);
     }
 
+    setVacation = () => { this.setRowValues("Vacation"); }
+    setSick = () => { this.setRowValues("Sick leave"); }
+    setHoliday = () => { this.setRowValues("Holiday"); }
+    setDayoff = () => { this.setRowValues("Day off"); }
+
     removeRow() {
-        this.props.onRemoveRow(this.props.dayNum, this.props.rowIndex);
+        this.props.onRemoveRow();
         this.setState({ isActive: false });
     }
 
@@ -57,12 +62,12 @@ export default class ReportDayRowMenu extends React.Component {
             <div className="ReportDayRowMenu" ref={(node) => this.wrapperRef = node}>
                 <div className={"menu-options popup-panel" + (isActive ? " open" : "") }>
                     <ul>
-                        <li className="clickable" onClick={() => this.setRowValues("Vacation")}>отпуск</li>
-                        <li className="clickable" onClick={() => this.setRowValues("Sick")}>болезнь</li>
-                        <li className="clickable" onClick={() => this.setRowValues("Holiday")}>праздник</li>
-                        <li className="clickable" onClick={() => this.setRowValues("Day Off")}>отгул</li>
+                        <li className="clickable" onClick={this.setVacation}>отпуск</li>
+                        <li className="clickable" onClick={this.setSick}>болезнь</li>
+                        <li className="clickable" onClick={this.setHoliday}>праздник</li>
+                        <li className="clickable" onClick={this.setDayoff}>отгул</li>
                         {
-                            this.props.rowIndex > 0 && <li className="row-remove" onClick={this.removeRow}>
+                            this.props.onRemoveRow != null && <li className="row-remove" onClick={this.removeRow}>
                                 <img src={rowRemoveImage} alt="remove" />
                                 <span>удалить</span>
                             </li>

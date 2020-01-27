@@ -15,7 +15,7 @@ export default class Reports extends React.Component {
         };
 
         this.handleChangeWeek = this.handleChangeWeek.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.handleFieldChange = this.handleFieldChange.bind(this);
         this.handleAddRow = this.handleAddRow.bind(this);
         this.handleRemoveRow = this.handleRemoveRow.bind(this);
         this.save = this.save.bind(this);
@@ -29,7 +29,7 @@ export default class Reports extends React.Component {
         });
     }
 
-    handleChange(day, row, fieldName, fieldValue) {
+    handleFieldChange(day, row, fieldName, fieldValue) {
         if(fieldName === 'hours')
             if(isNaN(fieldValue))
                 return;
@@ -88,7 +88,7 @@ export default class Reports extends React.Component {
                 <ReportContent
                     week={this.state.week}
                     days={this.state.days}
-                    onChange={this.handleChange}
+                    onFieldChange={this.handleFieldChange}
                     onAddRow={this.handleAddRow}
                     onRemoveRow={this.handleRemoveRow}
                 />

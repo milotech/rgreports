@@ -6,7 +6,7 @@ import addRowImage from './images/addRow.png';
 
 import './ReportDay.css';
 
-export default function ReportDay({ week, dayNum, rows, onChange, onAddRow, onRemoveRow}) {
+export default function ReportDay({ week, dayNum, rows, onFieldChange, onAddRow, onRemoveRow}) {
     const day = Day.createDay(week, dayNum);
 
     return (
@@ -16,13 +16,13 @@ export default function ReportDay({ week, dayNum, rows, onChange, onAddRow, onRe
             </div>
             <div className="col-date">{day.toString()}</div>
             <div className="report-day-rows">
-                { rows.map((row, rowIndex) => (
+                { rows.map((rowData, rowIndex) => (
                     <ReportDayRow 
                         key={rowIndex}
                         dayNum={dayNum}
-                        rowData={row}
                         rowIndex={rowIndex}
-                        onChange={onChange}
+                        data={rowData}
+                        onFieldChange={onFieldChange}
                         onRemoveRow={onRemoveRow}
                     />
                 ))}
