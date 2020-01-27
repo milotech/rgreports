@@ -97,10 +97,13 @@ export default class Reports extends React.Component {
     }
 }
 
-function getCurrentWeek() {
-    const now = Date.now();
+const DAYMILLISECONDS = 86400000;
 
-    return Math.trunc(now / 1000 / 60 / 60 / 24 / 7);
+function getCurrentWeek() {
+    const milliseconds = Date.now(); // Date.now returns milliseconds from thursday, 01/01/1970
+    const millisecondsFromMonday = milliseconds + 3 * DAYMILLISECONDS;
+
+    return Math.trunc(millisecondsFromMonday / 1000 / 60 / 60 / 24 / 7);
 }
 
 function getEmptyDays() {
