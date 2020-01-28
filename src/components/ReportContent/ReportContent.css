@@ -40,3 +40,33 @@
 .col-work {
     flex-grow: 1;
 }
+
+.ReportContentFooter {
+    margin-top: 80px;
+    border-top: 1px solid #F3F3F3;
+    padding-top: 8px;
+    padding-bottom: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.content-footer-title {
+    font-weight: 500;
+}
+
+.content-footer-menu {
+    display: flex;
+    list-style: none;
+    margin:0;
+    padding:0;
+    overflow: hidden;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.content-footer-menu li {
+    margin: 0 10px;
+    text-decoration: underline;
+    color: #989898;
+    cursor: pointer;
+}

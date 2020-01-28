@@ -18,6 +18,7 @@ export default class Reports extends React.Component {
         this.handleFieldChange = this.handleFieldChange.bind(this);
         this.handleAddRow = this.handleAddRow.bind(this);
         this.handleRemoveRow = this.handleRemoveRow.bind(this);
+        this.handleSetAllWeekText = this.handleSetAllWeekText.bind(this);
         this.save = this.save.bind(this);
     }
 
@@ -38,7 +39,6 @@ export default class Reports extends React.Component {
         days[day][row][fieldName] = fieldValue;
         
         this.setState({ days });
-
         this.save(days);
     }
 
@@ -51,7 +51,6 @@ export default class Reports extends React.Component {
         days[day].push({ hours: newRowHours });
         
         this.setState({ days });
-
         this.save(days);
     }
 
@@ -63,13 +62,28 @@ export default class Reports extends React.Component {
         days[day].splice(rowIndex, 1);
         
         this.setState({ days });
-
         this.save(days);
+    }
+
+    handleSetAllWeekText(text) {
+        if(window.confirm('Все данные за неделю будут стёрты. Уверены?')) {
+            const daysCount = this.state.days.length;
+            const days = Array(daysCount).fill([{ 
+                component: "-",
+                milestone: "-",
+                task: "-",
+                hours: "0",
+                text
+            }]);
+
+            this.setState({ days });
+            this.save(days);
+        }
     }
 
     save(days) {
         if(this.saveTimeout)
-        clearTimeout(this.saveTimeout);
+            clearTimeout(this.saveTimeout);
 
         const week = this.state.week;
         this.saveTimeout = setTimeout(() => {
@@ -91,6 +105,7 @@ export default class Reports extends React.Component {
                     onFieldChange={this.handleFieldChange}
                     onAddRow={this.handleAddRow}
                     onRemoveRow={this.handleRemoveRow}
+                    onSetAllWeekText={this.handleSetAllWeekText}
                 />
             </div>
         );
@@ -107,7 +122,7 @@ function getCurrentWeek() {
 }
 
 function getEmptyDays() {
-    return Array(5).fill().map(() => [{ hours: 8}]);
+    return Array(5).fill().map(() => [{ hours: '8'}]);
 }
 
 function loadWeekDays(week) {

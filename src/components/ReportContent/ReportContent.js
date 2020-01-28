@@ -1,9 +1,10 @@
 import React from 'react';
 import ReportDay from '../ReportDay';
+import ReportContentFooter from './ReportContentFooter';
 
 import './ReportContent.css';
 
-export default function ReportContent({ week, days, onFieldChange, onAddRow, onRemoveRow }) {
+export default function ReportContent({ week, days, onFieldChange, onAddRow, onRemoveRow, onSetAllWeekText }) {
     return (
         <div className='ReportContent'>
             <div className='panel'>
@@ -28,6 +29,7 @@ export default function ReportContent({ week, days, onFieldChange, onAddRow, onR
                         />
                     )}
                 </div>
+                <ReportContentFooter onSetAllWeekText={onSetAllWeekText} />
             </div>
         </div>
     );
