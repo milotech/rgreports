@@ -10,6 +10,7 @@
     margin: 0;
     outline: none;
     display: block;
+    height: 16px;
 }
 
 .Input textarea {

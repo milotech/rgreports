@@ -3,12 +3,25 @@ import React from 'react';
 import './Input.css';
 
 export default class Input extends React.Component {
+    constructor(props) {
+        super(props);
+        if(this.props.multiline)
+            this.updateTextareaHeight = this.updateTextareaHeight.bind(this);
+    }
+
     componentDidMount() {
         this.updateTextareaHeight();
+        if(this.props.multiline)
+            window.addEventListener('resize', this.updateTextareaHeight);
     }
 
     componentDidUpdate() {
         this.updateTextareaHeight();
+    }
+
+    componentWillUnmount() {
+        if(this.props.multiline)
+            window.removeEventListener('resize', this.updateTextareaHeight);
     }
 
     updateTextareaHeight() {
