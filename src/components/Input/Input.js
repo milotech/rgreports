@@ -2,10 +2,33 @@ import React from 'react';
 
 import './Input.css';
 
-export default function Input({ name, value, onChange, dropDownValues }) {
-    return (
-        <div className="Input">
-            <input type="text" autoComplete="off" name={name} value={value} onChange={onChange} />
-        </div>
-    )
+export default class Input extends React.Component {
+    componentDidMount() {
+        this.updateTextareaHeight();
+    }
+
+    componentDidUpdate() {
+        this.updateTextareaHeight();
+    }
+
+    updateTextareaHeight() {
+        if(this.props.multiline) {
+            const textarea = this.textareaRef;
+            textarea.style.height = "16px";
+            textarea.style.height = textarea.scrollHeight+  "px";
+        }
+    }
+
+    render() {
+        const { multiline, name, value, onChange, dropDownValues } = this.props;
+
+        return (
+            <div className="Input">
+                { multiline 
+                    ? <textarea name={name} value={value} onChange={onChange} ref={(node) => this.textareaRef = node} /> 
+                    : <input type="text" autoComplete="off" name={name} value={value} onChange={onChange} />
+                }
+            </div>
+        )
+    }
 }

@@ -1,11 +1,17 @@
 .Input {
     border-bottom: 1px solid #CCCCCC;
-    padding-bottom: 2px;
+    padding-bottom: 3px;
 }
 
-.Input input {
+.Input input, .Input textarea {
     width: 100%;
     border: none;
     padding: 0;
+    margin: 0;
     outline: none;
+    display: block;
+}
+
+.Input textarea {
+    resize: none;
 }

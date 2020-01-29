@@ -25,7 +25,7 @@ export default class ReportDayRow extends React.Component {
                     <Input name="hours" value={hours || ""} onChange={this.handleFieldChange} />
                 </div>
                 <div className="col-work">
-                    <Input name="text" value={text || ""} onChange={this.handleFieldChange} />
+                    <Input name="text" multiline={true} value={text || ""} onChange={this.handleFieldChange} />
                 </div>
                 <ReportDayRowMenu
                     onSetField={this.handleSetField}
