@@ -68,7 +68,7 @@ export default class Reports extends React.Component {
     handleSetAllWeekText(text) {
         if(window.confirm('Все данные за неделю будут стёрты. Уверены?')) {
             const daysCount = this.state.days.length;
-            const days = Array(daysCount).fill([{ 
+            const days = Array(daysCount).fill().map(() => [{ 
                 component: "-",
                 milestone: "-",
                 task: "-",
