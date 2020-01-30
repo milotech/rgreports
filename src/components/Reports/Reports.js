@@ -146,7 +146,7 @@ function getCurrentWeek() {
 }
 
 function getEmptyDays() {
-    return Array(5).fill().map(() => [{ hours: '8'}]);
+    return Array(5).fill().map(() => [{ }]);
 }
 
 function loadWeekDays(week) {
