@@ -8,7 +8,7 @@ export default class ReportSettings extends React.Component {
     }
 
     render() {
-        const { component, milestone, task, hours} = this.props.settings;
+        let { component, milestone, task, hours} = this.props.settings;
         if(isNaN(hours))
             hours = 8;
 
