@@ -1,6 +1,7 @@
 import React from 'react';
 import ReportHead from '../ReportHead';
 import ReportContent from '../ReportContent';
+import ReportSettings from '../ReportSettings';
 
 import './Reports.css';
 
@@ -11,7 +12,8 @@ export default class Reports extends React.Component {
         const week = getCurrentWeek();
         this.state = {
             week: week,
-            days: loadWeekDays(week)
+            days: loadWeekDays(week),
+            settings: loadSettings()
         };
 
         this.handleChangeWeek = this.handleChangeWeek.bind(this);
@@ -19,7 +21,10 @@ export default class Reports extends React.Component {
         this.handleAddRow = this.handleAddRow.bind(this);
         this.handleRemoveRow = this.handleRemoveRow.bind(this);
         this.handleSetAllWeekText = this.handleSetAllWeekText.bind(this);
-        this.save = this.save.bind(this);
+        this.saveDays = this.saveDays.bind(this);
+        
+        this.handleChangeSettings = this.handleChangeSettings.bind(this);
+        this.saveSettings = this.saveSettings.bind(this);
     }
 
     handleChangeWeek(offset) {
@@ -39,7 +44,7 @@ export default class Reports extends React.Component {
         days[day][row][fieldName] = fieldValue;
         
         this.setState({ days });
-        this.save(days);
+        this.saveDays(days);
     }
 
     handleAddRow(day) {
@@ -51,7 +56,7 @@ export default class Reports extends React.Component {
         days[day].push({ hours: newRowHours });
         
         this.setState({ days });
-        this.save(days);
+        this.saveDays(days);
     }
 
     handleRemoveRow(day, rowIndex) {
@@ -62,7 +67,7 @@ export default class Reports extends React.Component {
         days[day].splice(rowIndex, 1);
         
         this.setState({ days });
-        this.save(days);
+        this.saveDays(days);
     }
 
     handleSetAllWeekText(text) {
@@ -77,18 +82,35 @@ export default class Reports extends React.Component {
             }]);
 
             this.setState({ days });
-            this.save(days);
+            this.saveDays(days);
         }
     }
 
-    save(days) {
-        if(this.saveTimeout)
-            clearTimeout(this.saveTimeout);
+    saveDays(days) {
+        if(this.saveDaysTimeout)
+            clearTimeout(this.saveDaysTimeout);
 
         const week = this.state.week;
-        this.saveTimeout = setTimeout(() => {
+        this.saveDaysTimeout = setTimeout(() => {
             saveWeekDays(week, days);
         }, 1000);
+    }
+
+    handleChangeSettings(settingName, settingValue) {
+        let settings = { ...this.state.settings };
+        settings[settingName] = settingValue;
+
+        this.setState({ settings });
+        this.saveSettings(settings);
+    }
+
+    saveSettings(settings) {
+        if(this.saveSettingsTimeout)
+            clearTimeout(this.saveSettingsTimeout);
+
+        this.saveSettingsTimeout = setTimeout(() => {
+            saveSettings(settings);
+        }, 500);
     }
 
     render() {
@@ -106,7 +128,9 @@ export default class Reports extends React.Component {
                     onAddRow={this.handleAddRow}
                     onRemoveRow={this.handleRemoveRow}
                     onSetAllWeekText={this.handleSetAllWeekText}
+                    settings={this.state.settings}
                 />
+                <ReportSettings settings={this.state.settings} onChange={this.handleChangeSettings} />
             </div>
         );
     }
@@ -133,5 +157,16 @@ function loadWeekDays(week) {
 function saveWeekDays(week, days) {
     const key = 'week' + week;
     const value = JSON.stringify(days);
+    localStorage.setItem(key, value);
+}
+
+function loadSettings() {
+    const jsonValue = localStorage.getItem('settings');
+    return jsonValue ? JSON.parse(jsonValue) : { component: '', milestone: '4.7', task: '', hours: '8' };
+}
+
+function saveSettings(settings) {
+    const key = 'settings';
+    const value = JSON.stringify(settings);
     localStorage.setItem(key, value);
 }

@@ -33,13 +33,13 @@ export default class Input extends React.Component {
     }
 
     render() {
-        const { multiline, name, value, onChange, dropDownValues } = this.props;
+        const { multiline, name, value, onChange, defaultValue } = this.props;
 
         return (
             <div className="Input">
                 { multiline 
                     ? <textarea name={name} value={value} onChange={onChange} ref={(node) => this.textareaRef = node} /> 
-                    : <input type="text" autoComplete="off" name={name} value={value} onChange={onChange} />
+                    : <input type="text" autoComplete="off" name={name} value={value} onChange={onChange} placeholder={defaultValue} />
                 }
             </div>
         )

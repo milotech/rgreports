@@ -6,7 +6,7 @@ import addRowImage from './images/addRow.png';
 
 import './ReportDay.css';
 
-export default function ReportDay({ week, dayNum, rows, onFieldChange, onAddRow, onRemoveRow}) {
+export default function ReportDay({ week, dayNum, rows, onFieldChange, onAddRow, onRemoveRow, settings}) {
     const day = Day.createDay(week, dayNum);
 
     return (
@@ -24,6 +24,7 @@ export default function ReportDay({ week, dayNum, rows, onFieldChange, onAddRow,
                         data={rowData}
                         onFieldChange={onFieldChange}
                         onRemoveRow={onRemoveRow}
+                        settings={settings}
                     />
                 ))}
             </div>

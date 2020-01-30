@@ -1,0 +1,32 @@
+.ReportSettings {
+    padding: 0 31px;
+    font-size: 14px;
+}
+
+.ReportSettings header {
+    font-weight: 500;
+    margin: 12px 0px;
+
+}
+
+
+.default-settings {
+    display: flex;
+}
+
+.setting {
+    white-space: nowrap;
+    margin-right: 20px;
+}
+
+.setting:last-of-type {
+    margin-right: 0;
+}
+
+.setting input {    
+    margin-left: 10px;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    padding: 6px 10px;
+    outline: none;
+}

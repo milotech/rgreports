@@ -14,14 +14,14 @@ export default class ReportContent extends React.Component {
             (dayRows, dayNum) => {
                 const dayString = Day.createDay(week, dayNum).toString();
                 return dayRows
-                    .map(row => `${dayString}    ${row.component}    ${row.milestone}    ${row.task}    ${row.hours}    ${row.text.split('\n').join(' ')}`)
+                    .map(row => `${dayString}    ${row.component || this.props.settings.component || ""}\t${row.milestone || this.props.settings.milestone || ""}\t${row.task || this.props.settings.task || ""}\t${row.hours || this.props.settings.hours || ""}\t${(row.text || "").split('\n').join(' ')}`)
                     .join('\r\n');
             }
         ).join('\r\n\r\n');
     }
 
     render() {
-        const { week, days, onFieldChange, onAddRow, onRemoveRow, onSetAllWeekText } = this.props;
+        const { week, days, onFieldChange, onAddRow, onRemoveRow, onSetAllWeekText, settings } = this.props;
 
         return (
             <div className='ReportContent'>
@@ -44,6 +44,7 @@ export default class ReportContent extends React.Component {
                                 onFieldChange={onFieldChange}
                                 onAddRow={onAddRow}
                                 onRemoveRow={onRemoveRow}
+                                settings={settings}
                             />
                         )}
                     </div>
