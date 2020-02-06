@@ -30,3 +30,21 @@
     padding: 6px 10px;
     outline: none;
 }
+
+.full-view-setting {
+    font-size: 12px;
+    margin-bottom:30px;
+    margin-top:6px;
+    color: #777;
+    padding-left: 6px;
+    text-align: right;
+}
+
+.full-view-setting * {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.full-view-setting input{
+    margin-left: 10px;
+}

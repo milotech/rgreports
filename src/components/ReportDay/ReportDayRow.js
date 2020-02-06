@@ -16,12 +16,18 @@ export default class ReportDayRow extends React.Component {
                 <div className="col-comp">
                     <Input name="component" value={component || ""} defaultValue={settings.component} onChange={this.handleFieldChange} />
                 </div>
-                <div className="col-mlst">
-                    <Input name="milestone" value={milestone || ""} defaultValue={settings.milestone} onChange={this.handleFieldChange} />
-                </div>
-                <div className="col-task">
-                    <Input name="task" value={task || ""} defaultValue={settings.task} onChange={this.handleFieldChange} />
-                </div>
+                { 
+                    settings.fullView && (
+                        <React.Fragment>
+                            <div className="col-mlst">
+                                <Input name="milestone" value={milestone || ""} defaultValue={settings.milestone} onChange={this.handleFieldChange} />
+                            </div>
+                            <div className="col-task">
+                                <Input name="task" value={task || ""} defaultValue={settings.task} onChange={this.handleFieldChange} />
+                            </div>
+                        </React.Fragment>
+                    )
+                }
                 <div className="col-hours">
                     <Input name="hours" value={hours || ""} defaultValue={settings.hours} onChange={this.handleFieldChange} />
                 </div>

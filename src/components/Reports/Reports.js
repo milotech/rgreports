@@ -162,7 +162,7 @@ function saveWeekDays(week, days) {
 
 function loadSettings() {
     const jsonValue = localStorage.getItem('settings');
-    return jsonValue ? JSON.parse(jsonValue) : { component: '', milestone: '4.7', task: '', hours: '8' };
+    return jsonValue ? JSON.parse(jsonValue) : { component: '', milestone: '4.7', task: '', hours: '8', fullView: false };
 }
 
 function saveSettings(settings) {
